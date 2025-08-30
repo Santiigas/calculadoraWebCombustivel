@@ -6,16 +6,19 @@ import './index.css'
 
 export default function CalculadoraCombustivel() {
 
-  const [alcool, setAlcool] = useState<number>(0);
-  const [gasolina, setGasolina] = useState<number>(0);
+  const [alcool, setAlcool] = useState<string>("");
+  const [gasolina, setGasolina] = useState<string>("");
 
   function CalculaValores() {
-    if (gasolina === 0) {
-      alert("Digite um valor para gasolina!");
+    const a = parseFloat(alcool);
+    const g = parseFloat(gasolina);
+
+    if (isNaN(a) || isNaN(g) || g === 0) {
+      alert("Preencha valores válidos!");
       return;
     }
 
-    const valorConta = alcool / gasolina;
+    const valorConta = a / g;
 
     if (valorConta < 0.7) {
       alert("É mais em conta abastecer com Álcool!");
@@ -31,11 +34,11 @@ export default function CalculadoraCombustivel() {
         <h1>Qual a melhor opção para abastecer?</h1>
         <div className="input_block">
           <p>Álcool (Litro)</p>
-          <input type="number" value={alcool} onChange={(e) => setAlcool(Number(e.target.value))} placeholder="Valor por Litro"/>
+          <input type="number" step="0.01" value={alcool} onChange={(e) => setAlcool(Number(e.target.value))} placeholder="Valor por Litro"/>
         </div>
         <div className="input_block">
           <p>Gasolina (Litro)</p>
-          <input type="number" value={gasolina} onChange={(e) => setGasolina(Number(e.target.value))} placeholder="Valor por Litro" />
+          <input type="number" step="0.01" value={gasolina} onChange={(e) => setGasolina(Number(e.target.value))} placeholder="Valor por Litro" />
         </div>
         <button onClick={CalculaValores}>Calcular</button>
       </div>
